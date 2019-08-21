@@ -1,0 +1,18 @@
+listening-port=3478
+tls-listening-port=5349
+listening-ip=<%= node['ip6address'] %>
+listening-ip=<%= node['ipaddress'] %>
+use-auth-secret
+static-auth-secret=super-duper-secret
+server-name=<%= @turn_server_name %>
+realm=<%= @turn_server_name %>
+user-quota=12
+total-quota=1200
+no-tcp-relay
+cert=<%= node['certbot']['ssl_cert_path'] %>
+pkey=<%= node['certbot']['ssl_key_path'] %>
+dh-file=/etc/letsencrypt/ssl-dhparams.pem
+denied-peer-ip=10.0.0.0-10.255.255.255
+denied-peer-ip=192.168.0.0-192.168.255.255
+denied-peer-ip=172.16.0.0-172.31.255.255
+allowed-peer-ip=<%= node['ipaddress'] %>

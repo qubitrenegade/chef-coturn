@@ -18,3 +18,6 @@ chef_version '>= 13.0'
 # a Supermarket.
 #
 # source_url 'https://github.com/<insert_org_here>/coturn'
+
+depends 'certbot-exec'
+depends 'certbot-exec-cloudflare'
