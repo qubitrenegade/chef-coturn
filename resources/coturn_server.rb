@@ -2,9 +2,10 @@ provides :coturn_server
 resource_name :coturn_server
 
 property :server_name, String, name_property: true
+property :ssl_cert_path, String
+property :ssl_key_path, String
 
 action :create do
-  
   package 'coturn' do
     action :install
   end
@@ -18,7 +19,9 @@ action :create do
   template '/etc/turnserver.conf' do
     source 'turnserver.conf.erb'
     variables(
-      turn_server_name: new_resource.server_name
+      turn_server_name: new_resource.server_name,
+      ssl_cert_path: new_resource.ssl_cert_path || node['certbot']['ssl_cert_path'],
+      ssl_key_path: new_resource.ssl_key_path || node['certbot']['ssl_key_path'],
     )
     cookbook 'coturn'
     action :create
@@ -27,5 +30,23 @@ action :create do
 
   service 'coturn' do
     action [:enable, :start]
+  end
+end
+
+action :remove do
+  service 'coturn' do
+    action [:stop, :disable]
+  end
+
+  file '/etc/default/coturn' do
+    action :delete
+  end
+
+  template '/etc/turnserver.conf' do
+    action :remove
+  end
+
+  package 'coturn' do
+    action :remove
   end
 end

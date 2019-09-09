@@ -17,23 +17,28 @@ platforms:
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
-  - name: centos-7
-    driver:
-      image: dokken/centos-7
+  # - name: centos-7
+  #   driver:
+  #     image: dokken/centos-7
 
 suites:
   - name: default
     run_list:
-      - recipe[coturn::default]
+      - recipe[test-coturn::default]
     verifier:
       inspec_tests:
         - test/integration/default
     attributes:
+      test-coturn:
+        domain: <%= ENV['CHEF_COTURN_DOMAIN'] || 'turn-test.example.com' %>
       certbot-exec:
         agree_to_tos: true
         accept_tos: true
         print_cmd: true
         server: stage
+        <% if ENV['CF_EMAIL'] %>
+        email: <%= ENV['CF_EMAIL'] %>
+        <% end %>
       certbot-exec-cloudflare:
         agree_to_tos: true
         api_key: <%= ENV['CF_API_KEY'] || 'FOOBARBIZBAZ' %>

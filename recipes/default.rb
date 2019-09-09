@@ -23,25 +23,3 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
-coturn_server 'turn-test.qbrd.cc'
-
-__END__
-certbot_exec 'turn-test.qbrd.cc'
-
-package 'coturn' do
-  action :install
-end
-
-template '/etc/turnserver.conf' do
-  source 'turnserver.conf.erb'
-  variables(
-    turn_server_name: 'turn-test.qbrd.cc'
-  )
-  cookbook 'coturn'
-  action :create
-end
-
-service 'coturn' do
-  action [:enable, :start]
-end
