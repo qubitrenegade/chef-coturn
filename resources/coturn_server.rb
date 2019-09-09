@@ -21,7 +21,7 @@ action :create do
     variables(
       turn_server_name: new_resource.server_name,
       ssl_cert_path: new_resource.ssl_cert_path || node['certbot']['ssl_cert_path'],
-      ssl_key_path: new_resource.ssl_key_path || node['certbot']['ssl_key_path'],
+      ssl_key_path: new_resource.ssl_key_path || node['certbot']['ssl_key_path']
     )
     cookbook 'coturn'
     action :create

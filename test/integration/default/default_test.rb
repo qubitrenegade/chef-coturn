@@ -3,7 +3,6 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
 
-
 # try this on a real machine?
 describe service('coturn'), :skip do
   it { should be_installed }

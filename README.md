@@ -100,7 +100,7 @@ All PRs welcome!  (feature requests may be met with requests for a PR!)
 
 ## License
 
-```
+```text
 The MIT License (MIT)
 
 Copyright (c) 2019 Qubit Renegade
