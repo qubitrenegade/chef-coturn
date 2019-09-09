@@ -43,7 +43,7 @@ action :remove do
   end
 
   template '/etc/turnserver.conf' do
-    action :remove
+    action :delete
   end
 
   package 'coturn' do
